@@ -6,7 +6,6 @@
         "start": "nodemon app.js"
     },
     "dependencies": {
-        "bootstrap": "^5.2.3",
         "lodash": "^4.17.21"
     },
     "devDependencies": {
