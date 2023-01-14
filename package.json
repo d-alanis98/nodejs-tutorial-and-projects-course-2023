@@ -2,8 +2,14 @@
     "name": "nodejs-tutorial-and-projects-course-2023",
     "version": "0.1.0",
     "type": "commonjs",
+    "scripts": {
+        "start": "nodemon app.js"
+    },
     "dependencies": {
         "bootstrap": "^5.2.3",
         "lodash": "^4.17.21"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.20"
     }
 }
