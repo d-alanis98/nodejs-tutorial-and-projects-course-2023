@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "type": "commonjs",
     "dependencies": {
+        "bootstrap": "^5.2.3",
         "lodash": "^4.17.21"
     }
 }
