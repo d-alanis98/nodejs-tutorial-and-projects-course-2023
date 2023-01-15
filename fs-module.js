@@ -16,6 +16,9 @@ const data = {
 
 // If the file does not exist, it is going to be created
 const pathToNewFile = path.join(contentPath, 'second.json');
-const newFile = writeFileSync(pathToNewFile, JSON.stringify(data, null, 4), {
+writeFileSync(pathToNewFile, JSON.stringify(data, null, 4), {
     encoding: 'utf-8',
-})
+});
+
+const dataToWrite = JSON.stringify(new Array(100_000).fill('Hello world'));
+writeFileSync('./content/first.json', dataToWrite, 'utf-8');
