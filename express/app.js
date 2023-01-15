@@ -21,7 +21,7 @@ app.use(express.json())
 
 // Custom middlewares
 // Apply logger middleware to API routes
-app.use('/api', logger, apiRoutes);
+app.use('/api/v1', logger, apiRoutes);
 
 app.all('*', (req, res) => {
     res.status(404).send('<h1>Resource not found</h1>');

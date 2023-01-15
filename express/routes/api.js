@@ -4,11 +4,11 @@ const products = require('../data/products');
 
 const router = Router();
 
-router.get('/v1', (req, res) => {
+router.get('/', (req, res) => {
     return res.json(products);
 });
 
-router.get('/v1/query', (req, res) => {
+router.get('/query', (req, res) => {
     let { search, limit } = req.query;
     let resultProducts = products;
     if (search)
