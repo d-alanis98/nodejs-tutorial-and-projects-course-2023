@@ -10,8 +10,15 @@ const PORT = process.env.PORT ?? 8000;
 
 const app = express();
 // Set up middlewares
+// Serve static content
 app.use(express.static('./public'));
+// Morgan (third-party middleware for logging)
 app.use(morgan('tiny'))
+// Parse form data
+app.use(express.urlencoded({ extended: false }))
+// Parse JSON
+app.use(express.json())
+
 // Custom middlewares
 // Apply logger middleware to API routes
 app.use('/api', logger);
