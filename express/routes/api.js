@@ -1,26 +1,11 @@
 const Router = require('express').Router;
-// Data
-const products = require('../data/products');
+// Controllers
+const productsController = require('../controllers/productsController');
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    return res.json(products);
-});
+router.get('/', productsController.getAll);
 
-router.get('/query', (req, res) => {
-    let { search, limit } = req.query;
-    let resultProducts = products;
-    if (search)
-        resultProducts = products.filter(product => product.name.toLowerCase().startsWith(search.toLowerCase()));
-
-    if (limit !== undefined)
-        resultProducts = resultProducts.slice(0, Number.parseInt(limit));
-
-    if (resultProducts.length === 0)
-        return res.status(404).send('No products matched your search');
-
-    return res.json(resultProducts);
-});
+router.get('/query', productsController.getByQuery);
 
 module.exports = router;
