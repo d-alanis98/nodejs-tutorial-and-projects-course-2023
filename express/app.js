@@ -3,6 +3,7 @@ const express = require('express');
 const products = require('./data/products');
 // Middlewares
 const logger = require('./middleware/logger');
+const morgan = require('morgan');
 
 // Constants
 const PORT = process.env.PORT ?? 8000;
@@ -10,6 +11,7 @@ const PORT = process.env.PORT ?? 8000;
 const app = express();
 // Set up middlewares
 app.use(express.static('./public'));
+app.use(morgan('tiny'))
 // Custom middlewares
 // Apply logger middleware to API routes
 app.use('/api', logger);
