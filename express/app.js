@@ -1,8 +1,9 @@
 const path = require('path');
 const express = require('express');
 // Middlewares
-const logger = require('./middleware/logger');
 const morgan = require('morgan');
+const logger = require('./middleware/logger');
+const errorHandler = require('./middleware/errorHandler');
 // Routes
 const apiRoutes = require('./routes/api');
 
@@ -19,6 +20,8 @@ app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: false }));
 // Parse JSON
 app.use(express.json());
+// Error handler
+
 
 
 // Configurations
@@ -34,10 +37,12 @@ app.use('/api/v1', logger, apiRoutes);
 app.get('/pug', (req, res) => {
     let { name = 'John Doe', age = 24 } = req.query;
     return res.render('index.pug', { name, age });
-})
+});
 
 app.all('*', (req, res) => {
     res.status(404).send('<h1>Resource not found</h1>');
 });
+
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server listening on http://localhost:${ PORT }`));
