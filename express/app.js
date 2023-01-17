@@ -6,6 +6,8 @@ const logger = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 // Routes
 const apiRoutes = require('./routes/api');
+// Migrations
+const runMigrations = require('./migrations/seed');
 
 // Constants
 const PORT = process.env.PORT ?? 8000;
@@ -45,4 +47,8 @@ app.all('*', (req, res) => {
 
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Server listening on http://localhost:${ PORT }`));
+
+// Run db migrations - if required - and start listening for HTTP requests on the specified port
+runMigrations(() => {
+    app.listen(PORT, () => console.log(`Server listening on http://localhost:${ PORT }`));
+});

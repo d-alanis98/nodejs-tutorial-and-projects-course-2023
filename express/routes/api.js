@@ -1,14 +1,11 @@
 const Router = require('express').Router;
-// Controllers
-const productsController = require('../controllers/productsController');
 // Child routes
 const usersRoutes = require('./users');
+const productsRoutes = require('./products');
 
 const router = Router();
 
-router.get('/', productsController.getAll);
-
-router.get('/query', productsController.getByQuery);
+router.use('/products', productsRoutes);
 
 router.use('/users', usersRoutes);
 
