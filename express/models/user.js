@@ -1,4 +1,4 @@
-const { ResponseError, InvalidModelDataError } = require("../utils/errors");
+const { InvalidModelDataError } = require("../utils/errors");
 
 module.exports = class User {
     constructor({

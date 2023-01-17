@@ -7,6 +7,6 @@ router.route('/')
     .post(usersController.create);
 
 router.route('/:id')
-    .get(usersController.getById);
+    .get(usersController.show);
 
 module.exports = router;

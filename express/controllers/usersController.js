@@ -15,7 +15,7 @@ module.exports = {
         }
     },
 
-    getById: async (req, res, next) => {
+    show: async (req, res, next) => {
         let { id } = req.params;
         if (isNaN(id) || !Number.isInteger(Number(id)))
             return next(new ResponseError({
