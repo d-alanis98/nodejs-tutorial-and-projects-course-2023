@@ -1,7 +1,7 @@
 // Database
 const db = require('../database/connection');
 // Model
-const User = require('../models/user');
+const UserWithSequelize = require('../models/userWithSequelize');
 // Utils
 const ResponseError = require('../utils/errors').ResponseError;
 
@@ -37,12 +37,13 @@ module.exports = {
     create: async (req, res, next) => {
         try {
             const { name, email, dateOfBirth } = req.body;
-            const user = new User({
-                name, email, dateOfBirth
+            const createdUser = await UserWithSequelize.create({
+                name,
+                email,
+                dob: dateOfBirth
             });
-            await user.save(db);
             res.status(201)
-                .send(`Created user ${ name }`);
+                .send(createdUser);
         } catch(error) {
             next(error);
         }

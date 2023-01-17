@@ -7,6 +7,7 @@ const errorHandler = require('./middleware/errorHandler');
 const apiRoutes = require('./routes/api');
 // Migrations
 const runMigrations = require('./migrations/seed');
+const User = require('./models/userWithSequelize');
 
 // Constants
 const PORT = process.env.PORT ?? 8000;
@@ -21,7 +22,16 @@ app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: false }));
 // Parse JSON
 app.use(express.json());
-// Error handler
+// User middleware
+app.use(async (req, res, next) => {
+    try {
+        const user = await User.findByPk(1);
+        req.user = user;
+        next();
+    } catch(error) {
+        next(error);
+    }
+});
 
 
 
