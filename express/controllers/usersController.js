@@ -42,6 +42,8 @@ module.exports = {
                 email,
                 dob: dateOfBirth
             });
+            // We create a cart for the user
+            await createdUser.createCart();
             res.status(201)
                 .send(createdUser);
         } catch(error) {
