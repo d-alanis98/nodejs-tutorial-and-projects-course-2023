@@ -31,5 +31,20 @@ module.exports = {
         } catch(error) {
             return next(error);
         }
+    },
+
+    update: async (req, res, next) => {
+        try {
+            const product = await Product.getById(req.params.productId);
+            const updatedProduct = new Product({
+                _id: product._id,
+                ...req.body
+            });
+            await updatedProduct.update();
+            res.status(201)
+                .json(updatedProduct.toPrimitiveValues());
+        } catch(error) {
+            return next(error);
+        }
     }
 }

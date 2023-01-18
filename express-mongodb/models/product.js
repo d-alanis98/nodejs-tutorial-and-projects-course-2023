@@ -12,7 +12,9 @@ class Product {
         price, 
         imageUrl,
         description,
+        _id = null
     }) {
+        this._id = _id;
         this.title = title;
         this.price = price;
         this.imageUrl = imageUrl;
@@ -20,10 +22,11 @@ class Product {
     }
 
     toPrimitiveValues = () => ({
+        _id: this._id,
         title: this.title,
         price: this.price,
         imageUrl: this.imageUrl,
-        description: this.description
+        description: this.description,
     });
 
     save = async () => await db().collection('products').insertOne(this);
@@ -40,6 +43,16 @@ class Product {
                 statusMessage: `Product with id ${ id } not found`
             });
         return product;
+    }
+
+    update = async () => {
+        const { _id, ...fieldsToUpdate } = this;
+        return await db().collection('products').updateOne(
+            { _id: new ObjectId(_id) },
+            { 
+                $set: fieldsToUpdate
+            }
+        )
     }
 }
 
