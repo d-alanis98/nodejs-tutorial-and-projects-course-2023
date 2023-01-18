@@ -1,18 +1,8 @@
 // Model
 const User = require('../models/user');
-// Utils
-const { ResponseError } = require('../utils/errors');
-
-const findUserOrFail = async (userId, req) => {
-    const user = await User.findById(userId);
-    if(!user)
-        throw new ResponseError({
-            statusCode: 404,
-            statusMessage: 'User not found',
-            requestData: req
-        });
-    return user;
-}
+// Services
+const { findUserOrFail } = require('../services/userService');
+const { findRoleOrFail } = require('../services/roleService');
 
 module.exports = {
     get: async (req, res, next) => {
@@ -65,6 +55,19 @@ module.exports = {
             const user = await findUserOrFail(req.params.userId, req);
             await user.delete();
             return res.send('User deleted successfully');
+        } catch(error) {
+            return next(error);
+        }
+    },
+
+    assignRole: async (req, res, next) => {
+        try {
+            const user = await findUserOrFail(req.params.userId, req);
+            const role = await findRoleOrFail(req.body.roleId, req);
+            user.roles.push(role);
+            const updatedUser = await user.save();
+            return res.status(201)
+                .json(updatedUser);
         } catch(error) {
             return next(error);
         }

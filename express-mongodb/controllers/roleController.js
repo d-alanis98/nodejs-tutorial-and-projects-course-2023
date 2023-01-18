@@ -1,3 +1,4 @@
+// Model
 const Role = require('../models/role');
 
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
             return next(error);
         }
     },
-    
+
     create: async (req, res, next) => {
         try {
             const role = new Role(req.body);
@@ -19,5 +20,7 @@ module.exports = {
         } catch(error) {
             return next(error);
         }
-    }
+    },
+
+
 }

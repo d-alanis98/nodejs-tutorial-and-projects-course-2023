@@ -11,4 +11,6 @@ router.route('/:userId')
     .put(usersController.update)
     .delete(usersController.delete);
 
+router.post('/:userId/assignRole', usersController.assignRole);
+
 module.exports = router;

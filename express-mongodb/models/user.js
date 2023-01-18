@@ -12,7 +12,11 @@ const userSchema = new Schema({
     dateOfBirth: {
         type: Date,
         required: false
-    }
+    },
+    roles: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Role',
+    }]
 });
 
 module.exports = model('User', userSchema);
