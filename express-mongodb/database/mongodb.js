@@ -1,4 +1,5 @@
 const { MongoClient } = require('mongodb');
+// Configuration
 const database = require('../config/database');
 
 class MongoClientConnection {
