@@ -19,4 +19,9 @@ const userSchema = new Schema({
     }]
 });
 
+userSchema.methods.assignRole = function(role) {
+    this.roles = this.roles.concat(role._id);
+    return this.save();
+};
+
 module.exports = model('User', userSchema);

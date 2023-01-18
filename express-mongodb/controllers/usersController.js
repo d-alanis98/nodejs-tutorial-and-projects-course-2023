@@ -7,7 +7,8 @@ const { findRoleOrFail } = require('../services/roleService');
 module.exports = {
     get: async (req, res, next) => {
         try {
-            const users = await User.find();
+            const users = await User.find()
+                .populate('roles');
             return res.json(users);
         } catch(error) {
             return next(error);
@@ -64,8 +65,7 @@ module.exports = {
         try {
             const user = await findUserOrFail(req.params.userId, req);
             const role = await findRoleOrFail(req.body.roleId, req);
-            user.roles.push(role);
-            const updatedUser = await user.save();
+            const updatedUser = await user.assignRole(role);
             return res.status(201)
                 .json(updatedUser);
         } catch(error) {
