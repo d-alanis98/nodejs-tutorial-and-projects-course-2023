@@ -10,6 +10,15 @@ module.exports = {
         }
     },
 
+    show: async (req, res, next) => {
+        try {
+            const product = await Product.getById(req.params.productId);
+            return res.json(product);
+        } catch(error) {    
+            return next(error);
+        }
+    },
+
     create: async (req, res, next) => {
         try {
             const product = new Product({

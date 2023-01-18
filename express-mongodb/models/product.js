@@ -1,4 +1,8 @@
+const { ObjectId } = require('mongodb');
+// Database
 const { db } = require('../database/mongodb');
+// Utils
+const { ErrorWithStatusCode } = require('../../express/utils/errors');
 
  
 
@@ -26,6 +30,16 @@ class Product {
 
     static async get() {
         return await db().collection('products').find().toArray();
+    }
+
+    static async getById(id) {
+        const product = await db().collection('products').findOne({ _id: new ObjectId(id) })
+        if(!product)
+            throw new ErrorWithStatusCode({
+                statusCode: 404,
+                statusMessage: `Product with id ${ id } not found`
+            });
+        return product;
     }
 }
 
