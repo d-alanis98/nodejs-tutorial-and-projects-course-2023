@@ -47,8 +47,6 @@ module.exports = {
             if(product.length > 0)
                 quantity = product[0].CartItem.quantity + 1;
 
-            console.log({ quantity })
-            
             const productData = await Product.findByPk(productId);
             if(!productData)
                 throw new ResponseError({
